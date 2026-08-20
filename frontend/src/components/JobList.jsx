@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getJobs } from "../api";
 
 function JobList() {
+  const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const jobs = [
-    {
-      id: 1,
-      title: "Junior Software Developer",
-      company: "JobPilot Demo",
-      location: "Europe",
-      type: "Full-time",
-    },
-    {
-      id: 2,
-      title: "Software Engineering Intern",
-      company: "JobPilot Demo",
-      location: "Remote",
-      type: "Internship",
-    },
-  ];
+  useEffect(() => {
+    async function loadJobs() {
+      try {
+        const data = await getJobs();
+        setJobs(data);
+      } catch (err) {
+        setError("Unable to load jobs.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadJobs();
+  }, []);
 
   const filteredJobs = jobs.filter((job) => {
     const searchTerm = search.toLowerCase();
@@ -42,9 +44,16 @@ function JobList() {
         className="job-search"
       />
 
-      {filteredJobs.length === 0 ? (
+      {loading && <p>Loading jobs...</p>}
+
+      {error && <p className="no-results">{error}</p>}
+
+      {!loading && !error && filteredJobs.length === 0 && (
         <p className="no-results">No jobs found.</p>
-      ) : (
+      )}
+
+      {!loading &&
+        !error &&
         filteredJobs.map((job) => (
           <article className="job-card" key={job.id}>
             <h3>{job.title}</h3>
@@ -52,15 +61,14 @@ function JobList() {
             <p>{job.company}</p>
 
             <p>
-              {job.location} · {job.type}
+              {job.location} · {job.employment_type || "Not specified"}
             </p>
 
-            <button type="button">
-              View Job
-            </button>
+            {job.salary && <p>{job.salary}</p>}
+
+            <button type="button">View Job</button>
           </article>
-        ))
-      )}
+        ))}
     </section>
   );
 }
