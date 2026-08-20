@@ -1,17 +1,19 @@
 # JobPilot AI
 
-An AI-powered job portal designed to help job seekers discover, manage, and improve their job applications.
+JobPilot AI is an AI-powered job portal designed to help job seekers discover opportunities, manage applications, and improve their chances of getting hired.
 
 ## Project Goal
 
-JobPilot AI aims to make the job-search process easier by combining job discovery, application management, and AI-powered assistance in one platform.
+The goal of JobPilot AI is to bring job discovery, application management, and AI-powered career assistance into one platform.
 
 ## Planned Features
 
 - User registration and authentication
 - Job search and filtering
+- Job details
+- Save jobs
 - Job application tracking
-- AI-assisted CV analysis
+- AI-powered CV analysis
 - AI-powered job matching
 - Cover-letter assistance
 - User dashboard
@@ -19,15 +21,37 @@ JobPilot AI aims to make the job-search process easier by combining job discover
 
 ## Technology Stack
 
-- Frontend: React
-- Backend: Django & Django REST Framework
-- Database: PostgreSQL
-- Version Control: Git & GitHub
+### Frontend
+- React
+- JavaScript
+- Vite
+- CSS
 
-## Status
+### Backend
+- Python
+- Django
+- Django REST Framework
 
-🚧 Currently in development.
+### Database
+- PostgreSQL
 
-## Author
+### Tools
+- Git
+- GitHub
+- Visual Studio Code
 
-Quadri Olajide Alayaki
+## Project Structure
+
+```text
+jobpilot-ai/
+├── backend/
+│   ├── config/
+│   └── jobs/
+│
+├── frontend/
+│   ├── src/
+│   └── components/
+│
+├── .env.example
+├── .gitignore
+└── README.md
