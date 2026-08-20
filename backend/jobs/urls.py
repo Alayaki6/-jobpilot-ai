@@ -1,7 +1,7 @@
-from django.urls import path
-
-from .views import JobListCreateView
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
-    path("", JobListCreateView.as_view(), name="job-list-create"),
+    path("admin/", admin.site.urls),
+    path("api/jobs/", include("jobs.urls")),
 ]
