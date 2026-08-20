@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getJobs } from "../api";
+import JobDetails from "./JobDetails";
 
 function JobList() {
   const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedJob, setSelectedJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -21,6 +23,15 @@ function JobList() {
 
     loadJobs();
   }, []);
+
+  if (selectedJob) {
+    return (
+      <JobDetails
+        job={selectedJob}
+        onBack={() => setSelectedJob(null)}
+      />
+    );
+  }
 
   const filteredJobs = jobs.filter((job) => {
     const searchTerm = search.toLowerCase();
@@ -66,7 +77,12 @@ function JobList() {
 
             {job.salary && <p>{job.salary}</p>}
 
-            <button type="button">View Job</button>
+            <button
+              type="button"
+              onClick={() => setSelectedJob(job)}
+            >
+              View Job
+            </button>
           </article>
         ))}
     </section>
