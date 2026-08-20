@@ -6,6 +6,7 @@ function JobList() {
   const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
+  const [savedJobs, setSavedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -23,6 +24,22 @@ function JobList() {
 
     loadJobs();
   }, []);
+
+  const toggleSaveJob = (job) => {
+    setSavedJobs((currentSavedJobs) => {
+      const alreadySaved = currentSavedJobs.some(
+        (savedJob) => savedJob.id === job.id
+      );
+
+      if (alreadySaved) {
+        return currentSavedJobs.filter(
+          (savedJob) => savedJob.id !== job.id
+        );
+      }
+
+      return [...currentSavedJobs, job];
+    });
+  };
 
   if (selectedJob) {
     return (
@@ -65,26 +82,40 @@ function JobList() {
 
       {!loading &&
         !error &&
-        filteredJobs.map((job) => (
-          <article className="job-card" key={job.id}>
-            <h3>{job.title}</h3>
+        filteredJobs.map((job) => {
+          const isSaved = savedJobs.some(
+            (savedJob) => savedJob.id === job.id
+          );
 
-            <p>{job.company}</p>
+          return (
+            <article className="job-card" key={job.id}>
+              <h3>{job.title}</h3>
 
-            <p>
-              {job.location} · {job.employment_type || "Not specified"}
-            </p>
+              <p>{job.company}</p>
 
-            {job.salary && <p>{job.salary}</p>}
+              <p>
+                {job.location} ·{" "}
+                {job.employment_type || "Not specified"}
+              </p>
 
-            <button
-              type="button"
-              onClick={() => setSelectedJob(job)}
-            >
-              View Job
-            </button>
-          </article>
-        ))}
+              {job.salary && <p>{job.salary}</p>}
+
+              <button
+                type="button"
+                onClick={() => setSelectedJob(job)}
+              >
+                View Job
+              </button>
+
+              <button
+                type="button"
+                onClick={() => toggleSaveJob(job)}
+              >
+                {isSaved ? "Saved ✓" : "Save Job"}
+              </button>
+            </article>
+          );
+        })}
     </section>
   );
 }
