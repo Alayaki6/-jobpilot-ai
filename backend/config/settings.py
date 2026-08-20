@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "jobs",
+    "accounts",
 ]
 
 MIDDLEWARE = [
