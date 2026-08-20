@@ -76,6 +76,27 @@ button:hover {
   margin-bottom: 25px;
 }
 
+.job-search {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 25px;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.job-search:focus {
+  border-color: #2563eb;
+}
+
+.no-results {
+  text-align: center;
+  color: #6b7280;
+}
+
 .job-card {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
