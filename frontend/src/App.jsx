@@ -1,8 +1,11 @@
+import Navbar from "./components/Navbar";
 import JobList from "./components/JobList";
 
 function App() {
   return (
     <div>
+      <Navbar />
+
       <header>
         <h1>JobPilot AI</h1>
         <p>Find your next opportunity with smarter job searching.</p>
