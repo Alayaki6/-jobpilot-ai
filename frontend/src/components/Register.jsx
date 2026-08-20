@@ -5,13 +5,10 @@ function Register({ onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setError("");
-    setSuccess("");
 
     try {
       const response = await fetch(
@@ -41,15 +38,10 @@ function Register({ onRegister }) {
         throw new Error(message);
       }
 
-      setSuccess("Account created successfully.");
-
-      setUsername("");
-      setEmail("");
-      setPassword("");
-
-      if (onRegister) {
-        onRegister(data);
-      }
+      onRegister({
+        username,
+        email,
+      });
     } catch (err) {
       setError(err.message);
     }
@@ -60,8 +52,6 @@ function Register({ onRegister }) {
       <h2>Create an Account</h2>
 
       {error && <p className="auth-error">{error}</p>}
-
-      {success && <p className="auth-success">{success}</p>}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -82,7 +72,7 @@ function Register({ onRegister }) {
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Password (minimum 8 characters)"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           minLength={8}
