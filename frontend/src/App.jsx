@@ -1,3 +1,5 @@
+import JobList from "./components/JobList";
+
 function App() {
   return (
     <div>
@@ -9,6 +11,7 @@ function App() {
       <main>
         <section>
           <h2>Welcome to JobPilot AI</h2>
+
           <p>
             Search for jobs, manage your applications, and get AI-powered
             assistance throughout your job search.
@@ -18,6 +21,8 @@ function App() {
             Explore Jobs
           </button>
         </section>
+
+        <JobList />
       </main>
     </div>
   );
